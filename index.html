@@ -356,7 +356,7 @@
 
     function sendToWhatsApp(branch) {
         const nums = { branch1: "77780010770", branch2: "77080021092" };
-        const message = `НОВЫЙ ЗАКАЗ:\n- ` + cart.join('\n- ');
+        const message = `Здраствуйте, НОВЫЙ ЗАКАЗ:\n- ` + cart.join('\n- ');
         window.open(`https://wa.me/${nums[branch]}?text=${encodeURIComponent(message)}`);
         closeModal();
     }
@@ -373,3 +373,4 @@
 
 </body>
 </html>
+
