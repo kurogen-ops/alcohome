@@ -9,6 +9,7 @@
         :root {
             --primary: #d40000;
             --gold: #c5a059;
+            --orange-glow: rgba(255, 123, 0, 0.6); /* Цвет подсветки */
             --dark: #0a0a0a;
             --card-bg: #1a1a1a;
         }
@@ -27,13 +28,30 @@
             font-family: 'Playfair Display', serif; 
         }
 
+        /* ======= ЭФФЕКТЫ ПОДСВЕТКИ (ГРАДИЕНТ + РАЗМЫТИЕ) ======= */
+        .cat-card, .product-card, .location-card, .branch-option, .btn-add {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid #222;
+        }
+
+        /* Состояние при наведении (ПК) и удержании (Смартфон) */
+        .cat-card:hover, .cat-card:active,
+        .product-card:hover, .product-card:active,
+        .location-card:hover, .location-card:active,
+        .branch-option:hover, .branch-option:active {
+            border-color: #ff7b00;
+            box-shadow: 0 0 15px 2px var(--orange-glow);
+            background: linear-gradient(145deg, #1a1a1a, #251a10);
+            transform: translateY(-2px);
+        }
+
         /* ======= ОКНО ВЫБОРА ФИЛИАЛА ======= */
         #branch-modal {
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.95);
             z-index: 3000;
-            display: none; /* Скрыто до нажатия на Заказать */
+            display: none; 
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -52,14 +70,11 @@
         
         .branch-option {
             background: var(--card-bg);
-            border: 1px solid #333;
             padding: 20px;
             margin: 15px 0;
             cursor: pointer;
-            transition: 0.3s;
             border-radius: 5px;
         }
-        .branch-option:hover { border-color: var(--gold); }
         .branch-option b { display: block; color: var(--gold); margin-bottom: 5px; font-size: 18px; }
         .branch-option span { font-size: 12px; color: #888; }
 
@@ -81,38 +96,33 @@
         .header-logo img { width: 100px; border-radius: 50%; border: 1px solid var(--gold); margin-bottom: 15px; }
         .header-logo h1 { color: var(--gold); letter-spacing: 5px; margin: 0; font-size: 28px; }
 
-        /* ======= КАТЕГОРИИ (ГЛАВНАЯ) ======= */
+        /* ======= КАТЕГОРИИ ======= */
         .page-section { display: none; padding: 20px 20px 120px; min-height: 100vh; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .cat-card { 
             background: #111; 
-            height: 160px; 
-            border: 1px solid #222; 
+            height: 140px; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
             cursor: pointer;
-            transition: 0.3s;
         }
-        .cat-card:active { transform: scale(0.95); border-color: var(--gold); }
-        .cat-card .icon { font-size: 32px; margin-bottom: 10px; }
-        .cat-card span { color: var(--gold); letter-spacing: 2px; font-size: 14px; }
+        .cat-card .icon { font-size: 28px; margin-bottom: 8px; }
+        .cat-card span { color: var(--gold); letter-spacing: 1px; font-size: 12px; font-weight: 600; text-align: center; }
 
         /* ======= ТОВАРЫ ======= */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
         .product-card { 
             background: var(--card-bg); 
             padding: 15px; 
-            border: 1px solid #222; 
             text-align: center; 
             position: relative; 
         }
         .product-card img { width: 100%; height: 120px; object-fit: contain; }
-        .product-card h3 { font-size: 14px; margin: 12px 0 5px; color: #fff; font-weight: 400; height: 35px; overflow: hidden; }
-        .price { color: var(--gold); font-weight: bold; margin-bottom: 12px; font-size: 15px; }
+        .product-card h3 { font-size: 14px; margin: 12px 0 15px; color: #fff; font-weight: 400; height: 35px; overflow: hidden; }
 
         .btn-add { 
             background: transparent; 
@@ -125,7 +135,11 @@
             text-transform: uppercase;
             font-weight: 600;
         }
-        .btn-add:active { background: var(--gold); color: #000; }
+        .btn-add:active { 
+            background: #ff7b00; 
+            color: #000; 
+            box-shadow: 0 0 20px var(--orange-glow);
+        }
 
         /* ======= НАВИГАЦИЯ ======= */
         nav {
@@ -140,7 +154,7 @@
             z-index: 1000;
         }
         nav a { color: #555; text-decoration: none; font-size: 10px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
-        nav a.active { color: var(--gold); }
+        nav a.active { color: var(--gold); text-shadow: 0 0 10px var(--orange-glow); }
 
         #cart-count { 
             background: var(--primary); 
@@ -153,6 +167,18 @@
             right: -12px; 
         }
 
+        .location-card {
+            background:#111; 
+            padding:25px; 
+            text-align:center; 
+            margin-bottom:15px; 
+            cursor:pointer;
+        }
+        .2gis-btn {
+            font-size: 10px; color: var(--gold); border: 1px solid var(--gold); 
+            padding: 5px 15px; display: inline-block; margin-top: 15px;
+        }
+
         .warning { font-size: 9px; opacity: 0.3; text-align: center; margin-top: 50px; letter-spacing: 2px; line-height: 1.6; padding: 0 20px; }
     </style>
 </head>
@@ -161,21 +187,13 @@
 <div id="branch-modal">
     <div class="modal-content">
         <h2 class="branch-title" style="color: var(--gold); margin-bottom: 10px;">Где заберете?</h2>
-        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Выберите филиал для заказа:</p>
-        
         <div class="branch-option" onclick="sendToWhatsApp('branch1')">
-            <b>ALCO HOME №1</b>
-            <span>Нурсат 2-50</span><br>
-            <span>+7 (778) 001-07-70</span>
+            <b>ALCO HOME №1</b><span>Нурсат 2-50</span>
         </div>
-
         <div class="branch-option" onclick="sendToWhatsApp('branch2')">
-            <b>ALCO HOME №2</b>
-            <span>17-мкр, 19</span><br>
-            <span>+7 (708) 002-10-92</span>
+            <b>ALCO HOME №2</b><span>17-мкр, 19</span>
         </div>
-
-        <button onclick="closeModal()" style="background:none; border:none; color:#444; margin-top:10px; cursor:pointer; text-transform:uppercase; font-size:10px;">Назад к покупкам</button>
+        <button onclick="closeModal()" style="background:none; border:none; color:#444; margin-top:10px; font-size:10px;">НАЗАД</button>
     </div>
 </div>
 
@@ -185,7 +203,7 @@
         <p style="font-size: 13px; margin-bottom: 30px;">ВАМ ЕСТЬ 21 ГОД?</p>
         <button class="btn-add" style="background: var(--gold); color:#000; padding: 15px;" onclick="verifyAge()">ДА, МНЕ ЕСТЬ 21</button>
         <br><br>
-        <a href="https://google.com" style="color:#333; font-size:10px; text-decoration:none;">НЕТ, МНЕ МЕНЬШЕ</a>
+        <a href="https://google.com" style="color:#333; font-size:10px; text-decoration:none;">НЕТ</a>
     </div>
 </div>
 
@@ -196,11 +214,27 @@
 
 <div id="home" class="page-section" style="display: block;">
     <div class="category-grid">
-        <div class="cat-card" onclick="showSection('alcohol')">
+        <div class="cat-card" onclick="showCategory('whisky')">
             <span class="icon">🥃</span>
-            <span>НАПИТКИ</span>
+            <span>ВИСКИ</span>
         </div>
-        <div class="cat-card" onclick="showSection('snacks')">
+        <div class="cat-card" onclick="showCategory('vodka')">
+            <span class="icon">🍸</span>
+            <span>ВОДКА</span>
+        </div>
+        <div class="cat-card" onclick="showCategory('cognac')">
+            <span class="icon">🍷</span>
+            <span>КОНЬЯК</span>
+        </div>
+        <div class="cat-card" onclick="showCategory('wine')">
+            <span class="icon">🥂</span>
+            <span>ВИНО</span>
+        </div>
+        <div class="cat-card" onclick="showCategory('beer')">
+            <span class="icon">🍺</span>
+            <span>ПИВО</span>
+        </div>
+        <div class="cat-card" onclick="showCategory('snacks')">
             <span class="icon">🥜</span>
             <span>ЗАКУСКИ</span>
         </div>
@@ -215,83 +249,100 @@
     </div>
 </div>
 
-<div id="alcohol" class="page-section">
-    <h2 style="text-align:center; color:var(--gold); letter-spacing:3px;">SPIRITS</h2>
-    <div class="grid" id="alcohol-list"></div>
-</div>
-
-<div id="snacks" class="page-section">
-    <h2 style="text-align:center; color:var(--gold); letter-spacing:3px;">SNACKS</h2>
-    <div class="grid" id="snacks-list"></div>
+<div id="catalog" class="page-section">
+    <h2 id="catalog-title" style="text-align:center; color:var(--gold); letter-spacing:3px; text-transform: uppercase;"></h2>
+    <div class="grid" id="catalog-list"></div>
 </div>
 
 <div id="about" class="page-section">
     <h2 style="text-align:center; color:var(--gold);">LOCATIONS</h2>
-    <div style="background:#111; padding:25px; border:1px solid #222; text-align:center; margin-bottom:15px;">
-        <h3 style="margin:0; color:var(--gold);">ALCO HOME</h3>
+    <div class="location-card" onclick="window.open('https://go.2gis.com/Vk4ed')">
+        <h3 style="margin:0; color:var(--gold);">ALCO HOME №1</h3>
         <p>Нурсат 2-50</p>
-        <p style="font-size:14px;">+7 778 001 07 70</p>
+        <div class="2gis-btn">ОТКРЫТЬ В 2ГИС</div>
     </div>
-    <div style="background:#111; padding:25px; border:1px solid #222; text-align:center;">
-        <h3 style="margin:0; color:var(--gold);">ALCO HOME</h3>
+    <div class="location-card" onclick="window.open('https://go.2gis.com/S8MyD')">
+        <h3 style="margin:0; color:var(--gold);">ALCO HOME №2</h3>
         <p>17-мкр, 19</p>
-        <p style="font-size:14px;">+7 708 002 10 92</p>
+        <div class="2gis-btn">ОТКРЫТЬ В 2ГИС</div>
     </div>
     <div class="warning">МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: ЧРЕЗМЕРНОЕ УПОТРЕБЛЕНИЕ АЛКОГОЛЯ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. 21+</div>
 </div>
 
 <nav>
     <a onclick="showSection('home')" id="n-home" class="active">ГЛАВНАЯ</a>
-    <a onclick="showSection('alcohol')">НАПИТКИ</a>
-    <a onclick="showSection('snacks')">ЗАКУСКИ</a>
+    <a onclick="showCategory('whisky')">КАТАЛОГ</a>
+    <a onclick="showSection('about')">АДРЕСА</a>
     <a onclick="openModal()">
         <span style="position:relative;">🛒<span id="cart-count">0</span></span>
-        ЗАКАЗАТЬ
+        ЗАКАЗ
     </a>
 </nav>
 
 <script>
+    // JS остается без изменений
     const products = {
-        alcohol: [
-            { name: "Виски Jameson", price: 11000, img: "jameson.png" },
-            { name: "Коньяк Macallan", price: 67000, img: "macallan.png" },
-            { name: "Водка Absolut", price: 11800, img: "absolut.png" },
-            { name: "Ром Oakheart", price: 12000, img: "oakheart.png" },
-            { name: "Вино Askaneli", price: 11000, img: "askaneli.png" },
-            { name: "Виски Chivas", price: 29500, img: "chivas.png" }
+        whisky: [
+            { name: "Jameson", img: "jameson.png" },
+            { name: "Macallan 12", img: "macallan.png" },
+            { name: "Chivas Regal 12", img: "chivas.png" },
+            { name: "Jack Daniels", img: "jack.png" }
+        ],
+        vodka: [
+            { name: "Absolut Blue", img: "absolut.png" },
+            { name: "Grey Goose", img: "greygoose.png" },
+            { name: "Beluga Noble", img: "beluga.png" }
+        ],
+        cognac: [
+            { name: "Hennessy VS", img: "hennessy.png" },
+            { name: "Remy Martin", img: "remy.png" }
+        ],
+        wine: [
+            { name: "Askaneli", img: "askaneli.png" },
+            { name: "Kindzmarauli", img: "kindz.png" }
+        ],
+        beer: [
+            { name: "Corona Extra", img: "corona.png" },
+            { name: "Heineken", img: "heineken.png" }
         ],
         snacks: [
-            { name: "Рыба Жерех", price: 8000, img: "jereh.png" },
-            { name: "Сыр Чечел", price: 8000, img: "chechel.png" },
-            { name: "Курт домашний", price: 150, img: "kurt.png" },
-            { name: "Чипсы Lay's", price: 1100, img: "laya.png" }
+            { name: "Рыба Жерех", img: "jereh.png" },
+            { name: "Сыр Чечел", img: "chechel.png" },
+            { name: "Курт", img: "kurt.png" },
+            { name: "Lays Classic", img: "lays.png" }
         ]
     };
 
     let cart = [];
 
-    function init() {
-        const alc = document.getElementById('alcohol-list');
-        const snk = document.getElementById('snacks-list');
-        products.alcohol.forEach(p => alc.innerHTML += createCard(p));
-        products.snacks.forEach(p => snk.innerHTML += createCard(p));
-    }
-
-    function createCard(p) {
-        return `
-            <div class="product-card">
-                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150/111/c5a059?text=ALCO'">
-                <h3>${p.name}</h3>
-                <div class="price">${p.price} тг</div>
-                <button class="btn-add" onclick="addToCart('${p.name}')">+ В корзину</button>
-            </div>
-        `;
+    function showCategory(type) {
+        const list = document.getElementById('catalog-list');
+        const title = document.getElementById('catalog-title');
+        list.innerHTML = ''; 
+        title.innerText = type; 
+        products[type].forEach(p => {
+            list.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150/111/c5a059?text=${type}'">
+                    <h3>${p.name}</h3>
+                    <button class="btn-add" onclick="addToCart('${p.name}')">+ В корзину</button>
+                </div>
+            `;
+        });
+        showSection('catalog');
     }
 
     function addToCart(name) {
         cart.push(name);
         document.getElementById('cart-count').innerText = cart.length;
         if (navigator.vibrate) navigator.vibrate(40);
+    }
+
+    function showSection(id) {
+        document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        window.scrollTo(0,0);
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
     }
 
     function openModal() {
@@ -304,20 +355,10 @@
     }
 
     function sendToWhatsApp(branch) {
-        const config = {
-            branch1: { num: "77780010770", name: "ALCO HOME №1 (Нурсат 2-50)" },
-            branch2: { num: "77080021092", name: "ALCO HOME №2 (17-мкр, 19)" }
-        };
-        const target = config[branch];
-        const message = `Здраствуйте, НОВЫЙ ЗАКАЗ\nФилиал: ${target.name}\n----------\n- ` + cart.join('\n- ');
-        window.open(`https://wa.me/${target.num}?text=${encodeURIComponent(message)}`);
+        const nums = { branch1: "77780010770", branch2: "77080021092" };
+        const message = `НОВЫЙ ЗАКАЗ:\n- ` + cart.join('\n- ');
+        window.open(`https://wa.me/${nums[branch]}?text=${encodeURIComponent(message)}`);
         closeModal();
-    }
-
-    function showSection(id) {
-        document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-        window.scrollTo(0,0);
     }
 
     function verifyAge() {
@@ -326,7 +367,6 @@
     }
 
     window.onload = () => {
-        init();
         if(localStorage.getItem('alco_verified')) document.getElementById('age-verify').style.display = 'none';
     };
 </script>
