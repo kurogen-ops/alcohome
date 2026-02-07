@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ALCO HOME | Premium Store Shymkent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d40000;
+            --gold: #c5a059;
+            --dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+        }
+
+        /* ======= ОБЩИЕ СТИЛИ ======= */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            margin: 0;
+            background: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .cat-card span, .branch-title { 
+            font-family: 'Playfair Display', serif; 
+        }
+
+        /* ======= ОКНО ВЫБОРА ФИЛИАЛА ======= */
+        #branch-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            display: none; /* Скрыто до нажатия на Заказать */
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .modal-content {
+            background: #111;
+            border: 1px solid var(--gold);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .branch-option {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+        }
+        .branch-option:hover { border-color: var(--gold); }
+        .branch-option b { display: block; color: var(--gold); margin-bottom: 5px; font-size: 18px; }
+        .branch-option span { font-size: 12px; color: #888; }
+
+        /* ======= ПРОВЕРКА ВОЗРАСТА ======= */
+        #age-verify {
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .verify-box { border: 1px solid var(--gold); padding: 40px; background: #000; margin: 20px; }
+
+        /* ======= ШАПКА ======= */
+        .header-logo { text-align: center; padding: 50px 0 20px; }
+        .header-logo img { width: 100px; border-radius: 50%; border: 1px solid var(--gold); margin-bottom: 15px; }
+        .header-logo h1 { color: var(--gold); letter-spacing: 5px; margin: 0; font-size: 28px; }
+
+        /* ======= КАТЕГОРИИ (ГЛАВНАЯ) ======= */
+        .page-section { display: none; padding: 20px 20px 120px; min-height: 100vh; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .cat-card { 
+            background: #111; 
+            height: 160px; 
+            border: 1px solid #222; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cat-card:active { transform: scale(0.95); border-color: var(--gold); }
+        .cat-card .icon { font-size: 32px; margin-bottom: 10px; }
+        .cat-card span { color: var(--gold); letter-spacing: 2px; font-size: 14px; }
+
+        /* ======= ТОВАРЫ ======= */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .product-card { 
+            background: var(--card-bg); 
+            padding: 15px; 
+            border: 1px solid #222; 
+            text-align: center; 
+            position: relative; 
+        }
+        .product-card img { width: 100%; height: 120px; object-fit: contain; }
+        .product-card h3 { font-size: 14px; margin: 12px 0 5px; color: #fff; font-weight: 400; height: 35px; overflow: hidden; }
+        .price { color: var(--gold); font-weight: bold; margin-bottom: 12px; font-size: 15px; }
+
+        .btn-add { 
+            background: transparent; 
+            color: var(--gold); 
+            border: 1px solid var(--gold); 
+            padding: 10px; 
+            width: 100%; 
+            cursor: pointer; 
+            font-size: 10px; 
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .btn-add:active { background: var(--gold); color: #000; }
+
+        /* ======= НАВИГАЦИЯ ======= */
+        nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0 30px;
+            border-top: 1px solid #222;
+            z-index: 1000;
+        }
+        nav a { color: #555; text-decoration: none; font-size: 10px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+        nav a.active { color: var(--gold); }
+
+        #cart-count { 
+            background: var(--primary); 
+            color: white; 
+            padding: 2px 7px; 
+            border-radius: 10px; 
+            font-size: 10px; 
+            position: absolute; 
+            top: -8px; 
+            right: -12px; 
+        }
+
+        .warning { font-size: 9px; opacity: 0.3; text-align: center; margin-top: 50px; letter-spacing: 2px; line-height: 1.6; padding: 0 20px; }
+    </style>
+</head>
+<body>
+
+<div id="branch-modal">
+    <div class="modal-content">
+        <h2 class="branch-title" style="color: var(--gold); margin-bottom: 10px;">Где заберете?</h2>
+        <p style="font-size: 12px; color: #666; margin-bottom: 20px;">Выберите филиал для заказа:</p>
+        
+        <div class="branch-option" onclick="sendToWhatsApp('branch1')">
+            <b>ALCO HOME №1</b>
+            <span>Нурсат 2-50</span><br>
+            <span>+7 (778) 001-07-70</span>
+        </div>
+
+        <div class="branch-option" onclick="sendToWhatsApp('branch2')">
+            <b>ALCO HOME №2</b>
+            <span>17-мкр, 19</span><br>
+            <span>+7 (708) 002-10-92</span>
+        </div>
+
+        <button onclick="closeModal()" style="background:none; border:none; color:#444; margin-top:10px; cursor:pointer; text-transform:uppercase; font-size:10px;">Назад к покупкам</button>
+    </div>
+</div>
+
+<div id="age-verify">
+    <div class="verify-box">
+        <h2 style="letter-spacing: 5px; color: var(--gold);">ALCO HOME</h2>
+        <p style="font-size: 13px; margin-bottom: 30px;">ВАМ ЕСТЬ 21 ГОД?</p>
+        <button class="btn-add" style="background: var(--gold); color:#000; padding: 15px;" onclick="verifyAge()">ДА, МНЕ ЕСТЬ 21</button>
+        <br><br>
+        <a href="https://google.com" style="color:#333; font-size:10px; text-decoration:none;">НЕТ, МНЕ МЕНЬШЕ</a>
+    </div>
+</div>
+
+<div class="header-logo">
+    <img src="alc.png" alt="Logo">
+    <h1>ALCO HOME</h1>
+</div>
+
+<div id="home" class="page-section" style="display: block;">
+    <div class="category-grid">
+        <div class="cat-card" onclick="showSection('alcohol')">
+            <span class="icon">🥃</span>
+            <span>НАПИТКИ</span>
+        </div>
+        <div class="cat-card" onclick="showSection('snacks')">
+            <span class="icon">🥜</span>
+            <span>ЗАКУСКИ</span>
+        </div>
+        <div class="cat-card" onclick="showSection('about')">
+            <span class="icon">📍</span>
+            <span>АДРЕСА</span>
+        </div>
+        <div class="cat-card" onclick="window.open('https://instagram.com/alco_home_shymkent')">
+            <span class="icon">📸</span>
+            <span>INSTA</span>
+        </div>
+    </div>
+</div>
+
+<div id="alcohol" class="page-section">
+    <h2 style="text-align:center; color:var(--gold); letter-spacing:3px;">SPIRITS</h2>
+    <div class="grid" id="alcohol-list"></div>
+</div>
+
+<div id="snacks" class="page-section">
+    <h2 style="text-align:center; color:var(--gold); letter-spacing:3px;">SNACKS</h2>
+    <div class="grid" id="snacks-list"></div>
+</div>
+
+<div id="about" class="page-section">
+    <h2 style="text-align:center; color:var(--gold);">LOCATIONS</h2>
+    <div style="background:#111; padding:25px; border:1px solid #222; text-align:center; margin-bottom:15px;">
+        <h3 style="margin:0; color:var(--gold);">ALCO HOME</h3>
+        <p>Нурсат 2-50</p>
+        <p style="font-size:14px;">+7 778 001 07 70</p>
+    </div>
+    <div style="background:#111; padding:25px; border:1px solid #222; text-align:center;">
+        <h3 style="margin:0; color:var(--gold);">ALCO HOME</h3>
+        <p>17-мкр, 19</p>
+        <p style="font-size:14px;">+7 708 002 10 92</p>
+    </div>
+    <div class="warning">МИНЗДРАВ ПРЕДУПРЕЖДАЕТ: ЧРЕЗМЕРНОЕ УПОТРЕБЛЕНИЕ АЛКОГОЛЯ ВРЕДИТ ВАШЕМУ ЗДОРОВЬЮ. 21+</div>
+</div>
+
+<nav>
+    <a onclick="showSection('home')" id="n-home" class="active">ГЛАВНАЯ</a>
+    <a onclick="showSection('alcohol')">НАПИТКИ</a>
+    <a onclick="showSection('snacks')">ЗАКУСКИ</a>
+    <a onclick="openModal()">
+        <span style="position:relative;">🛒<span id="cart-count">0</span></span>
+        ЗАКАЗАТЬ
+    </a>
+</nav>
+
+<script>
+    const products = {
+        alcohol: [
+            { name: "Виски Jameson", price: 11000, img: "jameson.png" },
+            { name: "Коньяк Macallan", price: 67000, img: "macallan.png" },
+            { name: "Водка Absolut", price: 11800, img: "absolut.png" },
+            { name: "Ром Oakheart", price: 12000, img: "oakheart.png" },
+            { name: "Вино Askaneli", price: 11000, img: "askaneli.png" },
+            { name: "Виски Chivas", price: 29500, img: "chivas.png" }
+        ],
+        snacks: [
+            { name: "Рыба Жерех", price: 8000, img: "jereh.png" },
+            { name: "Сыр Чечел", price: 8000, img: "chechel.png" },
+            { name: "Курт домашний", price: 150, img: "kurt.png" },
+            { name: "Чипсы Lay's", price: 1100, img: "laya.png" }
+        ]
+    };
+
+    let cart = [];
+
+    function init() {
+        const alc = document.getElementById('alcohol-list');
+        const snk = document.getElementById('snacks-list');
+        products.alcohol.forEach(p => alc.innerHTML += createCard(p));
+        products.snacks.forEach(p => snk.innerHTML += createCard(p));
+    }
+
+    function createCard(p) {
+        return `
+            <div class="product-card">
+                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150/111/c5a059?text=ALCO'">
+                <h3>${p.name}</h3>
+                <div class="price">${p.price} тг</div>
+                <button class="btn-add" onclick="addToCart('${p.name}')">+ В корзину</button>
+            </div>
+        `;
+    }
+
+    function addToCart(name) {
+        cart.push(name);
+        document.getElementById('cart-count').innerText = cart.length;
+        if (navigator.vibrate) navigator.vibrate(40);
+    }
+
+    function openModal() {
+        if (cart.length === 0) { alert("Корзина пуста"); return; }
+        document.getElementById('branch-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('branch-modal').style.display = 'none';
+    }
+
+    function sendToWhatsApp(branch) {
+        const config = {
+            branch1: { num: "77780010770", name: "ALCO HOME №1 (Нурсат 2-50)" },
+            branch2: { num: "77080021092", name: "ALCO HOME №2 (17-мкр, 19)" }
+        };
+        const target = config[branch];
+        const message = `Здраствуйте, НОВЫЙ ЗАКАЗ\nФилиал: ${target.name}\n----------\n- ` + cart.join('\n- ');
+        window.open(`https://wa.me/${target.num}?text=${encodeURIComponent(message)}`);
+        closeModal();
+    }
+
+    function showSection(id) {
+        document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function verifyAge() {
+        document.getElementById('age-verify').style.display = 'none';
+        localStorage.setItem('alco_verified', 'true');
+    }
+
+    window.onload = () => {
+        init();
+        if(localStorage.getItem('alco_verified')) document.getElementById('age-verify').style.display = 'none';
+    };
+</script>
+
+</body>
+</html>
