@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ALCO HOME | Premium Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #c5a059;
@@ -27,9 +27,7 @@
             padding: 10px 15px; border-radius: 8px; font-size: 10px; font-weight: 800; 
             text-transform: uppercase; cursor: pointer; transition: 0.3s;
         }
-        .btn-catalog-top:hover { background: rgba(197, 160, 89, 0.2); box-shadow: 0 0 10px var(--gold-glow); }
-        .btn-catalog-top:active { background: var(--gold); color: #000; transform: scale(0.95); }
-
+        
         #catalog-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.7);
             z-index: 2400; display: none; opacity: 0; transition: 0.4s;
@@ -48,25 +46,13 @@
         .sidebar-brand img { width: 50px; border-radius: 50%; border: 1px solid var(--gold); margin-bottom: 10px; }
         .sidebar-brand div { color: var(--gold); font-size: 14px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
 
-        .sidebar-header { color: #555; font-size: 10px; font-weight: 800; margin-bottom: 15px; letter-spacing: 2px; text-align: center; }
         .cat-list-wrapper { display: flex; flex-direction: column; gap: 8px; }
-        
         .cat-item-side {
             background: #1a1a1a; padding: 16px; border-radius: 12px;
             text-align: left; border: 1px solid rgba(255,255,255,0.03);
             transition: 0.3s; cursor: pointer; display: flex; align-items: center;
         }
-        .cat-item-side:hover { border-color: var(--gold); background: #1f1f1f; }
-        .cat-item-side:active { transform: scale(0.95); background: #222; }
         .cat-item-side span { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #888; letter-spacing: 1px; }
-
-        .btn-back-side {
-            margin-top: 20px; padding: 15px; border-radius: 12px;
-            background: transparent; border: 1px dashed #444; color: #666;
-            text-align: center; font-size: 11px; font-weight: 700; text-transform: uppercase;
-            cursor: pointer; transition: 0.3s;
-        }
-        .btn-back-side:active { background: #222; color: #fff; border-color: #fff; }
 
         header { text-align: center; padding: 30px 0; }
         .header-logo img { width: 70px; border-radius: 50%; border: 1px solid var(--gold); }
@@ -78,44 +64,37 @@
             border: 1px solid rgba(255,255,255,0.05); transition: 0.3s ease;
             cursor: pointer;
         }
-        .product-card:hover { border-color: var(--gold); box-shadow: 0 5px 20px rgba(197, 160, 89, 0.2); transform: translateY(-5px); }
         .product-card img { width: 100%; height: 130px; object-fit: contain; margin-bottom: 10px; pointer-events: none; }
         .product-card h3 { font-size: 11px; color: #efefef; height: 32px; overflow: hidden; margin: 0; pointer-events: none; }
         
         .add-action-box { 
             background: rgba(197, 160, 89, 0.1); border: 1px solid var(--gold); 
-            border-radius: 10px; padding: 10px; text-align: center; margin-top: 10px; transition: 0.2s;
+            border-radius: 10px; padding: 10px; text-align: center; margin-top: 10px;
         }
-        .add-action-box:hover { background: rgba(197, 160, 89, 0.25); }
-        .add-action-box:active { background: var(--gold) !important; transform: scale(0.9); }
-        .add-action-box:active span { color: #000 !important; }
         .add-action-box span { color: var(--gold); font-size: 10px; font-weight: 700; pointer-events: none; }
 
         .bottom-nav { 
             position: fixed; bottom: 0; width: 100%; 
             background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(25px); 
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border-top: 1px solid rgba(255, 255, 255, 0.1); 
             display: flex; justify-content: space-around; 
             padding: 8px 10px 20px; z-index: 2000; 
         }
-        .nav-btn { 
-            flex: 1; height: 42px; display: flex; align-items: center; justify-content: center; 
-            background: transparent; border-radius: 12px; transition: 0.2s; cursor: pointer;
-        }
-        .nav-btn:hover { background: rgba(255, 255, 255, 0.05); }
-        .nav-btn img { width: 26px; height: 26px; object-fit: contain; }
+        .nav-btn { flex: 1; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .nav-btn img { width: 26px; height: 26px; }
 
-        .checkout-bar { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 30px; border-radius: 30px; font-weight: 900; font-size: 12px; z-index: 1001; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; transition: 0.2s; }
+        .checkout-bar { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 30px; border-radius: 30px; font-weight: 900; font-size: 12px; z-index: 1001; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; }
 
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         .modal-content { background: #111; border: 1px solid var(--gold); padding: 25px; width: 90%; max-width: 400px; border-radius: 25px; }
         .btn-main { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: 800; margin-top: 20px; text-transform: uppercase; cursor: pointer; }
-        .branch-option { background: #1a1a1a; padding: 15px; margin: 10px 0; border-radius: 12px; text-align: center; border: 1px solid transparent; transition: 0.2s; cursor: pointer; }
-        .branch-option:hover { border-color: var(--gold); }
-
+        .branch-option { background: #1a1a1a; padding: 15px; margin: 10px 0; border-radius: 12px; text-align: center; border: 1px solid transparent; cursor: pointer; }
         .input-field { width: 100%; background: #222; border: 1px solid var(--gold); color: #fff; padding: 15px; border-radius: 12px; font-size: 14px; margin-top: 10px; outline: none; }
+        
+        .qty-control { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 15px 0; background: #1a1a1a; padding: 10px; border-radius: 15px; border: 1px solid rgba(197,160,89,0.2); }
+        .qty-btn { background: var(--gold); border: none; width: 35px; height: 35px; border-radius: 8px; font-weight: 900; font-size: 20px; cursor: pointer; }
+        #temp-qty { font-size: 20px; font-weight: 800; color: #fff; min-width: 30px; text-align: center; }
     </style>
 </head>
 <body>
@@ -128,17 +107,16 @@
 <div id="catalog-overlay" onclick="toggleSidebar()"></div>
 <div id="catalog-sidebar">
     <div class="sidebar-brand"><img src="alc.png" alt="Logo"><div>ALCO HOME</div></div>
-    <div class="sidebar-header">ВЫБЕРИТЕ КАТЕГОРИЮ</div>
     <div class="cat-list-wrapper">
         <div class="cat-item-side" onclick="selectCategory('whisky')"><span>🥃 Виски</span></div>
         <div class="cat-item-side" onclick="selectCategory('vodka')"><span>🍸 Водка</span></div>
         <div class="cat-item-side" onclick="selectCategory('cognac')"><span>🍷 Коньяк</span></div>
-        <div class="cat-item-side" onclick="selectCategory('draft')"><span>🍺 Разливное пиво</span></div>
+        <div class="cat-item-side" onclick="selectCategory('draft')"><span>🍺 Разливное</span></div>
         <div class="cat-item-side" onclick="selectCategory('wine')"><span>🍾 Вино</span></div>
         <div class="cat-item-side" onclick="selectCategory('beer')"><span>🍺 Пиво</span></div>
         <div class="cat-item-side" onclick="selectCategory('snacks')"><span>🥨 Закуски</span></div>
     </div>
-    <div class="btn-back-side" onclick="toggleSidebar()">← Назад к покупкам</div>
+    <div onclick="toggleSidebar()" style="margin-top:20px; text-align:center; color:#444; font-size:10px; font-weight:700;">ЗАКРЫТЬ</div>
 </div>
 
 <header>
@@ -151,18 +129,27 @@
 </div>
 
 <div class="bottom-nav">
-    <a href="https://instagram.com/alco_home_shymkent" class="nav-btn">
-        <img src="https://img.icons8.com/ios-filled/50/c5a059/instagram-new--v1.png" alt="Insta">
-    </a>
-    <div class="nav-btn" onclick="openModal('address-modal')">
-        <img src="https://img.icons8.com/ios-filled/50/c5a059/marker.png" alt="Адреса">
-    </div>
-    <div class="nav-btn" onclick="openModal('support-modal')">
-        <img src="https://img.icons8.com/ios-filled/50/c5a059/whatsapp--v1.png" alt="Support">
-    </div>
+    <a href="https://instagram.com/alco_home_shymkent" class="nav-btn"><img src="https://img.icons8.com/ios-filled/50/c5a059/instagram-new--v1.png"></a>
+    <div class="nav-btn" onclick="openModal('address-modal')"><img src="https://img.icons8.com/ios-filled/50/c5a059/marker.png"></div>
+    <div class="nav-btn" onclick="openModal('support-modal')"><img src="https://img.icons8.com/ios-filled/50/c5a059/whatsapp--v1.png"></div>
 </div>
 
 <div class="checkout-bar" id="checkout-bar" onclick="openModal('cart-modal')">ВАШ ЗАКАЗ (<span id="cart-count">0</span>)</div>
+
+<div id="volume-qty-modal" class="modal">
+    <div class="modal-content">
+        <h2 id="modal-prod-name" style="color:var(--gold); font-size: 14px; text-align: center; text-transform: uppercase; margin-bottom:10px;">Товар</h2>
+        <div style="text-align:center; font-size:10px; color:#555; font-weight:700; margin-bottom:5px;">УКАЖИТЕ КОЛИЧЕСТВО</div>
+        <div class="qty-control">
+            <button class="qty-btn" onclick="changeTempQty(-1)">-</button>
+            <span id="temp-qty">1</span>
+            <button class="qty-btn" onclick="changeTempQty(1)">+</button>
+        </div>
+        <div style="text-align:center; font-size:10px; color:#555; font-weight:700; margin-bottom:10px;">ВЫБЕРИТЕ ОБЪЕМ</div>
+        <div id="volume-options-list"></div>
+        <button onclick="closeModal('volume-qty-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ОТМЕНА</button>
+    </div>
+</div>
 
 <div id="draft-modal" class="modal">
     <div class="modal-content">
@@ -173,37 +160,10 @@
     </div>
 </div>
 
-<div id="delivery-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 14px; text-align: center; text-transform: uppercase;">Куда доставить?</h2>
-        <input type="text" id="delivery-address" class="input-field" placeholder="Улица, дом, кв / Ориентир / Ссылка на 2GIS">
-        <button class="btn-main" onclick="finalOrderSend()">ОФОРМИТЬ В WHATSAPP</button>
-        <button onclick="closeModal('delivery-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ОТМЕНА</button>
-    </div>
-</div>
-
-<div id="address-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase; margin-bottom: 20px;">Наши маркеты</h2>
-        <div class="branch-option" onclick="window.open('https://go.2gis.com/Vk4ed')"><b style="color: #fff;">ФИЛИАЛ №1</b><br><small style="color: var(--gold);">мкр. Нурсат 2, дом 50</small></div>
-        <div class="branch-option" onclick="window.open('https://go.2gis.com/8m43i')"><b style="color: #fff;">ФИЛИАЛ №2</b><br><small style="color: var(--gold);">17-й микрорайон, дом 19</small></div>
-        <button onclick="closeModal('address-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ЗАКРЫТЬ</button>
-    </div>
-</div>
-
-<div id="support-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 16px; text-align: center;">НУЖНА ПОМОЩЬ?</h2>
-        <div class="branch-option" onclick="window.open('https://wa.me/77479102650')"><b>АДМИНИСТРАТОР</b><br><small>+7 747 910 26 50</small></div>
-        <div class="branch-option" onclick="window.open('https://wa.me/77079814338')"><b>ОПЕРАТОР</b><br><small>+7 707 981 43 38</small></div>
-        <button onclick="closeModal('support-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor: pointer;">ЗАКРЫТЬ</button>
-    </div>
-</div>
-
 <div id="cart-modal" class="modal">
     <div class="modal-content">
         <h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase;">Мой заказ</h2>
-        <div id="cart-items-list" style="max-height: 250px; overflow-y: auto;"></div>
+        <div id="cart-items-list" style="max-height: 250px; overflow-y: auto; margin: 15px 0;"></div>
         <button class="btn-main" onclick="openModal('branch-modal')">Оформить заказ</button>
         <button onclick="closeModal('cart-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ЗАКРЫТЬ</button>
     </div>
@@ -218,14 +178,120 @@
     </div>
 </div>
 
+<div id="delivery-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="color:var(--gold); font-size: 14px; text-align: center; text-transform: uppercase;">Куда доставить?</h2>
+        <input type="text" id="delivery-address" class="input-field" placeholder="Улица, дом... / Ссылка 2GIS">
+        <button class="btn-main" onclick="finalOrderSend()">ОФОРМИТЬ В WHATSAPP</button>
+        <button onclick="closeModal('delivery-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ОТМЕНА</button>
+    </div>
+</div>
+
+<div id="address-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase;">Наши маркеты</h2>
+        <div class="branch-option" onclick="window.open('https://go.2gis.com/Vk4ed')">ФИЛИАЛ №1<br><small>Нурсат 2, дом 50</small></div>
+        <div class="branch-option" onclick="window.open('https://go.2gis.com/8m43i')">ФИЛИАЛ №2<br><small>17-й мкр, дом 19</small></div>
+        <button onclick="closeModal('address-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; cursor: pointer;">ЗАКРЫТЬ</button>
+    </div>
+</div>
+
+<div id="support-modal" class="modal">
+    <div class="modal-content">
+        <h2 style="color:var(--gold); font-size: 16px; text-align: center;">НУЖНА ПОМОЩЬ?</h2>
+        <div class="branch-option" onclick="window.open('https://wa.me/77479102650')">АДМИНИСТРАТОР</div>
+        <div class="branch-option" onclick="window.open('https://wa.me/77079814338')">ОПЕРАТОР</div>
+        <button onclick="closeModal('support-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor: pointer;">ЗАКРЫТЬ</button>
+    </div>
+</div>
+
 <script>
     const products = {
-        whisky: [ {name: "Macallan 18Y", img: "m1.png"}, {name: "Blue Label", img: "b1.png"}, {name: "Chivas 18", img: "c1.png"} ],
-        vodka: [ {name: "Beluga Gold", img: "bg.png"}, {name: "Grey Goose", img: "gg.png"} ],
-        cognac: [ {name: "Hennessy XO", img: "hx.png"} ],
-        draft: [ {name: "Чешское Светлое", img: "d1.png"}, {name: "Немецкое Нефильтр.", img: "d2.png"} ],
+        whisky: [ 
+            {name: "Jameson", vols: ["0.5", "0.7", "1.0"], img: "jameson.png"},
+            {name: "Jameson Black Barrel", vols: ["0.7"], img: "j-black.png"},
+            {name: "Jameson Orange", vols: ["0.7"], img: "j-orange.png"},
+            {name: "Jameson Crested", vols: ["0.7"], img: "j-crested.png"},
+            {name: "Jameson в коробке", vols: ["0.7"], img: "j-box.png"},
+            {name: "Jack Daniel’s", vols: ["0.5", "0.7", "1.0"], img: "jack.png"},
+            {name: "Jack Daniel’s Honey", vols: ["0.3"], img: "jack-h.png"},
+            {name: "Ballantines", vols: ["0.5", "0.7", "1.0"], img: "ballantines.png"},
+            {name: "Ballantines в коробке", vols: ["0.7"], img: "ball-box.png"},
+            {name: "Chivas Regal 12Y", vols: ["0.5", "0.7", "1.0"], img: "chivas.png"},
+            {name: "Monkey Shoulder", vols: ["0.5", "0.7"], img: "monkey.png"},
+            {name: "Glenmorangie 10Y", vols: ["0.7"], img: "glenmo.png"},
+            {name: "Macallan 12Y", vols: ["0.7"], img: "macallan.png"},
+            {name: "Dewar’s 8Y", vols: ["0.7"], img: "dewars.png"},
+            {name: "The Glenlivet 12Y", vols: ["0.7"], img: "glenlivet.png"},
+            {name: "Glenfiddich 12Y", vols: ["0.7"], img: "glenfiddich.png"},
+            {name: "Aberlour 12Y", vols: ["0.7"], img: "aberlour.png"}
+        ],
+        vodka: [ 
+            {name: "Абсолют", vols: ["0.5", "0.7", "1.0"], img: "absolute.png"},
+            {name: "Коскенкорва", vols: ["0.5", "0.7"], img: "kosken.png"},
+            {name: "Царское село", vols: ["0.7"], img: "tsar-s.png"},
+            {name: "Царская золотая", vols: ["0.5", "0.7", "1.0"], img: "tsar-g.png"},
+            {name: "Царская Оригинал", vols: ["0.5", "0.7", "1.0"], img: "tsar.png"},
+            {name: "Онегин", vols: ["0.5", "0.7"], img: "onegin.png"},
+            {name: "Русский Стандарт", vols: ["0.5", "0.7", "1.0"], img: "rs.png"},
+            {name: "Фортуна", vols: ["0.5", "0.7"], img: "fortuna.png"},
+            {name: "Монт Бланк", vols: ["0.7"], img: "mont.png"},
+            {name: "Органика", vols: ["0.5", "0.7"], img: "organika.png"},
+            {name: "GREY GOOSE", vols: ["0.5", "0.7", "1.0"], img: "gg.png"},
+            {name: "Belvedere", vols: ["0.7"], img: "belvedere.png"},
+            {name: "Finlandia", vols: ["0.5", "0.7", "1.0"], img: "finlandia.png"},
+            {name: "Beluga", vols: ["0.5", "0.7", "1.0"], img: "beluga.png"},
+            {name: "Қазақстан", vols: ["0.5"], img: "kz.png"},
+            {name: "SKYY", vols: ["0.7"], img: "skyy.png"}
+        ],
+        cognac: [ 
+            {name: "Ararat 7Y в кор.", vols: ["0.7"], img: "ararat7-box.png"},
+            {name: "Ararat 15Y", vols: ["0.5"], img: "ararat15.png"},
+            {name: "Ararat 7Y", vols: ["0.5", "0.7"], img: "ararat7.png"},
+            {name: "Ararat 5Y", vols: ["0.5", "0.7"], img: "ararat5.png"},
+            {name: "Ararat 3Y", vols: ["0.5", "0.7"], img: "ararat3.png"},
+            {name: "Ararat Coffee", vols: ["0.5"], img: "ararat-c.png"},
+            {name: "Ararat 10Y", vols: ["0.7"], img: "ararat10.png"},
+            {name: "Hennessy VS", vols: ["0.5", "0.7", "1.0"], img: "henn.png"},
+            {name: "Martell VS", vols: ["0.5", "0.7"], img: "martell.png"},
+            {name: "Martell VSOP", vols: ["0.5", "0.7"], img: "martell-v.png"}
+        ],
+        draft: [ 
+            {name: "Прага руденское", img: "d1.png"}, 
+            {name: "Прага нефильтрованное", img: "d2.png"},
+            {name: "Шымкентское", img: "d3.png"},
+            {name: "Немецкое", img: "d4.png"},
+            {name: "Мохито", img: "d5.png"},
+            {name: "Прага шымкент", img: "d6.png"},
+            {name: "YÍCHANG", img: "d7.png"}
+        ],
         wine: [ {name: "Moët Imperial", img: "mi.png"}, {name: "Kindzmarauli", img: "k1.png"} ],
-        beer: [ {name: "Guinness", img: "g1.png"}, {name: "Corona Extra", img: "ce.png"} ],
+        beer: [ 
+            {name: "Heineken", vols: ["0.3", "0.5"], img: "heineken.png"},
+            {name: "Krusovice", vols: ["0.5"], img: "krusovice.png"},
+            {name: "Rabbit Blue", img: "rabbit.png"},
+            {name: "Max Jack’s", img: "maxjacks.png"},
+            {name: "Efes pilsner", img: "efes.png"},
+            {name: "Miller", vols: ["0.3", "0.5"], img: "miller.png"},
+            {name: "Corona extra", vols: ["0.3"], img: "corona.png"},
+            {name: "Bavarian", vols: ["0.5"], img: "bavarian.png"},
+            {name: "Wukong", vols: ["0.5"], img: "wukong.png"},
+            {name: "Holsten", vols: ["0.5"], img: "holsten.png"},
+            {name: "Blanc 1664", img: "blanc.png"},
+            {name: "Rose 1664", img: "rose.png"},
+            {name: "Carlslerg", img: "carlslerg.png"},
+            {name: "Bud", vols: ["0.3", "0.5"], img: "bud.png"},
+            {name: "Tsintao", vols: ["0.3"], img: "tsintao.png"},
+            {name: "Clausthaler", vols: ["0.3"], img: "clausthaler.png"},
+            {name: "Astera", vols: ["0.5"], img: "astera.png"},
+            {name: "Line brew premium lager", vols: ["0.5"], img: "linebrew.png"},
+            {name: "Gubernija pilsners", vols: ["0.5"], img: "gub-pils.png"},
+            {name: "Fest bier", vols: ["0.5"], img: "festbier.png"},
+            {name: "Gubernija Extra", vols: ["0.5"], img: "gub-extra.png"},
+            {name: "Ayinger", vols: ["0.5"], img: "ayinger.png"},
+            {name: "Stun", vols: ["0.3"], img: "stun.png"},
+            {name: "Gin tonic", img: "gintonic.png"}
+        ],
         snacks: [ {name: "Сет Сыров", img: "s1.png"}, {name: "Мясное ассорти", img: "s2.png"} ]
     };
 
@@ -233,26 +299,8 @@
     let currentCategory = 'whisky';
     let tempDraftName = '';
     let selectedBranch = '';
-
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    document.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-
-    document.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-
-    function handleSwipe() {
-        const sidebar = document.getElementById('catalog-sidebar');
-        const isOpen = sidebar.classList.contains('open');
-        const swipeDistance = touchEndX - touchStartX;
-        if (!isOpen && swipeDistance > 70 && touchStartX < 40) toggleSidebar();
-        if (isOpen && swipeDistance < -70) toggleSidebar();
-    }
+    let currentTempQty = 1;
+    let currentTempProdName = '';
 
     function toggleSidebar() {
         const sidebar = document.getElementById('catalog-sidebar');
@@ -269,7 +317,7 @@
 
     function selectCategory(type) {
         currentCategory = type;
-        const labels = {whisky:'Виски', vodka:'Водка', cognac:'Коньяк', draft:'Разливное пиво', wine:'Вино', beer:'Импорт', snacks:'Закуски'};
+        const labels = {whisky:'Виски', vodka:'Водка', cognac:'Коньяк', draft:'Разливное', wine:'Вино', beer:'Пиво', snacks:'Закуски'};
         document.getElementById('current-cat-label').innerText = labels[type];
         showCategory(type);
         toggleSidebar();
@@ -284,20 +332,42 @@
                 <div class="product-card">
                     <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150/111/c5a059?text=${p.name}'">
                     <h3>${p.name}</h3>
-                    <div class="add-action-box" onclick="handleAddToCart('${p.name}')"><span>+ В корзину</span></div>
+                    <div class="add-action-box" onclick="handleProductClick('${p.name}')"><span>+ В корзину</span></div>
                 </div>`;
         });
     }
 
-    function handleAddToCart(name) {
+    function handleProductClick(name) {
+        const prod = products[currentCategory].find(p => p.name === name);
         if(currentCategory === 'draft') {
             tempDraftName = name;
             document.getElementById('draft-title').innerText = name;
-            document.getElementById('liter-input').value = "";
             openModal('draft-modal');
+        } else if (prod.vols) {
+            currentTempProdName = name;
+            currentTempQty = 1;
+            document.getElementById('temp-qty').innerText = "1";
+            document.getElementById('modal-prod-name').innerText = name;
+            const volList = document.getElementById('volume-options-list');
+            volList.innerHTML = '';
+            prod.vols.forEach(v => {
+                volList.innerHTML += `<div class="branch-option" onclick="addToCartWithVol('${v}')"><b>ОБЪЕМ ${v} Л</b></div>`;
+            });
+            openModal('volume-qty-modal');
         } else {
             addToCart(name);
         }
+    }
+
+    function changeTempQty(n) {
+        currentTempQty = Math.max(1, currentTempQty + n);
+        document.getElementById('temp-qty').innerText = currentTempQty;
+    }
+
+    function addToCartWithVol(vol) {
+        const itemText = `${currentTempProdName} (${vol} л) — ${currentTempQty} шт.`;
+        addToCart(itemText);
+        closeModal('volume-qty-modal');
     }
 
     function confirmDraftVolume() {
@@ -308,8 +378,8 @@
         }
     }
 
-    function addToCart(name) {
-        cart.push(name);
+    function addToCart(text) {
+        cart.push(text);
         updateCartUI();
         if (navigator.vibrate) navigator.vibrate(40);
     }
@@ -320,7 +390,7 @@
         const list = document.getElementById('cart-items-list');
         list.innerHTML = '';
         cart.forEach((item, i) => {
-            list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #222;"><span>${item}</span><span onclick="removeFromCart(${i})" style="color:#f44; cursor:pointer;">❌</span></div>`;
+            list.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #222; font-size:12px;"><span>${item}</span><span onclick="removeFromCart(${i})" style="color:#f44; cursor:pointer;">❌</span></div>`;
         });
     }
 
@@ -337,11 +407,10 @@
 
     function finalOrderSend() {
         const addr = document.getElementById('delivery-address').value;
-        if(!addr) { alert("Укажите адрес доставки"); return; }
+        if(!addr) { alert("Укажите адрес"); return; }
         const nums = { branch1: "77780010770", branch2: "77080021092" };
-        const text = `НОВЫЙ ЗАКАЗ:\n- ` + cart.join('\n- ') + `\n\n📍 АДРЕС: ${addr}`;
+        const text = `🔥 НОВЫЙ ЗАКАЗ:\n\n` + cart.map(i => `▪️ ${i}`).join('\n') + `\n\n📍 АДРЕС: ${addr}`;
         window.open(`https://wa.me/${nums[selectedBranch]}?text=${encodeURIComponent(text)}`);
-        closeModal('delivery-modal');
     }
 
     function openModal(id) { 
