@@ -449,6 +449,7 @@
     }
 
     function addToCart(name, detail, qty, isCustom = false) {
+        // Определяем, нужно ли скрыть кнопки +/- в корзине (для разливного и весового)
         let hideQtyControls = isCustom;
 
         if (editingIndex > -1) {
@@ -556,6 +557,42 @@
     }
     
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    const swipeThreshold = 80; 
+    const edgeZone = 50; 
+
+    document.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+    }, false);
+
+    document.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleGesture();
+    }, false);
+
+    function handleGesture() {
+        const diffX = touchEndX - touchStartX;
+        const diffY = touchEndY - touchStartY;
+
+        if (Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX > swipeThreshold && touchStartX < edgeZone) {
+                const sidebar = document.getElementById('catalog-sidebar');
+                if (!sidebar.classList.contains('open')) toggleSidebar();
+            }
+            if (diffX < -swipeThreshold) {
+                const sidebar = document.getElementById('catalog-sidebar');
+                if (sidebar.classList.contains('open')) toggleSidebar();
+            }
+        }
+    }
 
     window.onload = () => {
         showCategory('whisky');
