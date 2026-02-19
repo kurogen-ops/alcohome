@@ -22,6 +22,14 @@
             background: rgba(13, 13, 13, 0.95); backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(197, 160, 89, 0.2);
         }
+
+        .search-box { position: relative; margin: 10px 15px; }
+        .search-input {
+            width: 100%; background: #1a1a1a; border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 10px; padding: 10px 15px; color: #fff; font-size: 14px; outline: none;
+        }
+        .search-input:focus { border-color: var(--gold); }
+
         .btn-catalog-top { 
             background: rgba(197, 160, 89, 0.1); border: 1px solid var(--gold); color: var(--gold); 
             padding: 10px 15px; border-radius: 8px; font-size: 10px; font-weight: 800; 
@@ -52,10 +60,8 @@
             text-align: left; border: 1px solid rgba(255,255,255,0.03);
             transition: 0.3s; cursor: pointer; display: flex; align-items: center;
         }
-        /* Подсветка категорий */
-        .cat-item-side:hover, .cat-item-side:active { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); }
+        .cat-item-side:hover { border-color: var(--gold); box-shadow: 0 0 10px var(--gold-glow); }
         .cat-item-side span { font-size: 12px; font-weight: 700; text-transform: uppercase; color: #888; letter-spacing: 1px; }
-        .cat-item-side:hover span { color: var(--gold); }
 
         header { text-align: center; padding: 30px 0; }
         .header-logo img { width: 70px; border-radius: 50%; border: 1px solid var(--gold); }
@@ -64,15 +70,16 @@
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 0 15px; }
         .product-card { 
             background: var(--card-bg); padding: 15px; border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s ease;
             cursor: pointer; position: relative;
         }
-        /* ГЛАВНАЯ ПОДСВЕТКА БЛОКОВ */
-        .product-card:hover, .product-card:active {
-            border-color: var(--gold);
-            box-shadow: 0 0 15px var(--gold-glow);
-            transform: translateY(-2px);
+        /* ПОДСВЕТКА ПРИ НАВЕДЕНИИ */
+        .product-card:hover { 
+            border-color: var(--gold); 
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+            transform: translateY(-3px);
         }
+        .product-card:active { transform: scale(0.98); }
 
         .product-card img { width: 100%; height: 130px; object-fit: contain; margin-bottom: 10px; pointer-events: none; }
         .product-card h3 { font-size: 11px; color: #efefef; height: 32px; overflow: hidden; margin: 0; pointer-events: none; }
@@ -91,18 +98,16 @@
             display: flex; justify-content: space-around; 
             padding: 8px 10px 20px; z-index: 2000; 
         }
-        .nav-btn { flex: 1; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
-        .nav-btn:active img { transform: scale(1.2); filter: drop-shadow(0 0 5px var(--gold)); }
+        .nav-btn { flex: 1; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .nav-btn img { width: 26px; height: 26px; }
 
-        .checkout-bar { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 30px; border-radius: 30px; font-weight: 900; font-size: 12px; z-index: 1001; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; transition: 0.2s; }
-        .checkout-bar:active { transform: translateX(-50%) scale(0.95); background: var(--gold); }
+        .checkout-bar { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background: #fff; color: #000; padding: 12px 30px; border-radius: 30px; font-weight: 900; font-size: 12px; z-index: 1001; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; }
 
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
         .modal-content { background: #111; border: 1px solid var(--gold); padding: 25px; width: 90%; max-width: 400px; border-radius: 25px; position: relative; }
         .btn-main { background: var(--gold); color: #000; border: none; padding: 15px; width: 100%; border-radius: 12px; font-weight: 800; margin-top: 20px; text-transform: uppercase; cursor: pointer; }
-        .branch-option { background: #1a1a1a; padding: 15px; margin: 10px 0; border-radius: 12px; text-align: center; border: 1px solid transparent; cursor: pointer; transition: 0.2s; }
-        .branch-option:active, .branch-option:hover { border-color: var(--gold); background: #222; }
+        .branch-option { background: #1a1a1a; padding: 15px; margin: 10px 0; border-radius: 12px; text-align: center; border: 1px solid transparent; cursor: pointer; }
+        .branch-option:active { border-color: var(--gold); background: #222; }
         
         .input-field { width: 100%; background: #222; border: 1px solid var(--gold); color: #fff; padding: 15px; border-radius: 12px; font-size: 14px; margin-top: 10px; outline: none; }
         
@@ -110,11 +115,13 @@
         .qty-btn { background: var(--gold); border: none; width: 35px; height: 35px; border-radius: 8px; font-weight: 900; font-size: 20px; cursor: pointer; color: #000; display: flex; align-items: center; justify-content: center; }
         #temp-qty { font-size: 20px; font-weight: 800; color: #fff; min-width: 30px; text-align: center; }
 
-        /* Стили для корзины */
-        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #222; }
+        .cart-item-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #222; }
         .cart-info { flex: 1; font-size: 12px; line-height: 1.4; padding-right: 10px; }
-        .cart-actions { display: flex; align-items: center; gap: 10px; }
+        .cart-actions { display: flex; align-items: center; gap: 8px; }
         .cart-mini-btn { width: 25px; height: 25px; background: #333; color: var(--gold); border: 1px solid var(--gold); border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-edit-item { font-size: 14px; margin-left: 5px; cursor: pointer; opacity: 0.7; }
+        /* Удаление товара если нет кнопок */
+        .btn-delete-item { color: #ff4444; font-size: 18px; margin-left: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -122,6 +129,10 @@
 <div class="top-bar">
     <button class="btn-catalog-top" onclick="toggleSidebar()">☰ Каталог</button>
     <div style="color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: 1px;">ALCO HOME</div>
+</div>
+
+<div class="search-box">
+    <input type="text" id="search-input" class="search-input" placeholder="Поиск напитков..." oninput="handleSearch()">
 </div>
 
 <div id="catalog-overlay" onclick="toggleSidebar()"></div>
@@ -174,8 +185,8 @@
 <div id="custom-input-modal" class="modal">
     <div class="modal-content">
         <h2 id="custom-input-title" style="color:var(--gold); font-size: 14px; text-align: center; text-transform: uppercase;">Ввод</h2>
-        <input type="number" id="custom-input-field" class="input-field" placeholder="..." step="0.5">
-        <button class="btn-main" onclick="confirmCustomInput()">ДОБАВИТЬ В КОРЗИНУ</button>
+        <input type="number" id="custom-input-field" class="input-field" placeholder="..." step="0.1">
+        <button class="btn-main" onclick="confirmCustomInput()">СОХРАНИТЬ</button>
         <button onclick="closeModal('custom-input-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ОТМЕНА</button>
     </div>
 </div>
@@ -189,41 +200,10 @@
     </div>
 </div>
 
-<div id="branch-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase;">Где заберете?</h2>
-        <div class="branch-option" onclick="selectBranch('branch1')"><b>ФИЛИАЛ №1</b><br><small>Нурсат 2-50</small></div>
-        <div class="branch-option" onclick="selectBranch('branch2')"><b>ФИЛИАЛ №2</b><br><small>17-мкр, 19</small></div>
-        <button onclick="closeModal('branch-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor: pointer;">НАЗАД</button>
-    </div>
-</div>
-
-<div id="delivery-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 14px; text-align: center; text-transform: uppercase;">Куда доставить?</h2>
-        <input type="text" id="delivery-address" class="input-field" placeholder="Улица, дом... / Ссылка 2GIS">
-        <button class="btn-main" onclick="finalOrderSend()">ОФОРМИТЬ В WHATSAPP</button>
-        <button onclick="closeModal('delivery-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ОТМЕНА</button>
-    </div>
-</div>
-
-<div id="address-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase;">Наши маркеты</h2>
-        <div class="branch-option" onclick="window.open('https://go.2gis.com/Vk4ed')">ФИЛИАЛ №1<br><small>Нурсат 2, дом 50</small></div>
-        <div class="branch-option" onclick="window.open('https://go.2gis.com/8m43i')">ФИЛИАЛ №2<br><small>17-й мкр, дом 19</small></div>
-        <button onclick="closeModal('address-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; cursor: pointer;">ЗАКРЫТЬ</button>
-    </div>
-</div>
-
-<div id="support-modal" class="modal">
-    <div class="modal-content">
-        <h2 style="color:var(--gold); font-size: 16px; text-align: center;">НУЖНА ПОМОЩЬ?</h2>
-        <div class="branch-option" onclick="window.open('https://wa.me/77479102650')">АДМИНИСТРАТОР</div>
-        <div class="branch-option" onclick="window.open('https://wa.me/77079814338')">ОПЕРАТОР</div>
-        <button onclick="closeModal('support-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor: pointer;">ЗАКРЫТЬ</button>
-    </div>
-</div>
+<div id="branch-modal" class="modal"><div class="modal-content"><h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase;">Где заберете?</h2><div class="branch-option" onclick="selectBranch('branch1')"><b>ФИЛИАЛ №1</b><br><small>Нурсат 2-50</small></div><div class="branch-option" onclick="selectBranch('branch2')"><b>ФИЛИАЛ №2</b><br><small>17-мкр, 19</small></div><button onclick="closeModal('branch-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor: pointer;">НАЗАД</button></div></div>
+<div id="delivery-modal" class="modal"><div class="modal-content"><h2 style="color:var(--gold); font-size: 14px; text-align: center; text-transform: uppercase;">Куда доставить?</h2><input type="text" id="delivery-address" class="input-field" placeholder="Улица, дом... / Ссылка 2GIS"><button class="btn-main" onclick="finalOrderSend()">ОФОРМИТЬ В WHATSAPP</button><button onclick="closeModal('delivery-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; font-weight:700; cursor: pointer;">ОТМЕНА</button></div></div>
+<div id="address-modal" class="modal"><div class="modal-content"><h2 style="color:var(--gold); font-size: 16px; text-align: center; text-transform: uppercase;">Наши маркеты</h2><div class="branch-option" onclick="window.open('https://go.2gis.com/Vk4ed')">ФИЛИАЛ №1<br><small>Нурсат 2, дом 50</small></div><div class="branch-option" onclick="window.open('https://go.2gis.com/8m43i')">ФИЛИАЛ №2<br><small>17-й мкр, дом 19</small></div><button onclick="closeModal('address-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:15px; cursor: pointer;">ЗАКРЫТЬ</button></div></div>
+<div id="support-modal" class="modal"><div class="modal-content"><h2 style="color:var(--gold); font-size: 16px; text-align: center;">НУЖНА ПОМОЩЬ?</h2><div class="branch-option" onclick="window.open('https://wa.me/77479102650')">АДМИНИСТРАТОР</div><div class="branch-option" onclick="window.open('https://wa.me/77079814338')">ОПЕРАТОР</div><button onclick="closeModal('support-modal')" style="background:none; border:none; color:#444; width:100%; margin-top:10px; cursor: pointer;">ЗАКРЫТЬ</button></div></div>
 
 <script>
     const products = {
@@ -278,108 +258,93 @@
         ],
         draft: [ 
             {name: "Прага руденское", img: "d1.png"}, 
-            {name: "Прага нефильтрованное", img: "d2.png"},
-            {name: "Шымкентское", img: "d3.png"},
-            {name: "Немецкое", img: "d4.png"},
-            {name: "Мохито", img: "d5.png"},
-            {name: "Прага шымкент", img: "d6.png"},
-            {name: "YÍCHANG", img: "d7.png"}
+            {name: "Прага нефильтрованное", img: "d.png"},
+            {name: "Шымкентское", img: "dshym.png"},
+            {name: "Немецкое", img: "pnemeckoe.png"},
+            {name: "Мохито", img: "mohito.png"},
+            {name: "Прага шымкент", img: "ppragashym.png"},
+            {name: "YÍCHANG", img: "pyichang.png"}
         ],
         wine: [ 
-            {name: "Vellevine Kindzmarauli", img: "w1.png"}, 
-            {name: "Vellevine Pirosmani", img: "w2.png"},
-            {name: "Vellevine Tsinandali", img: "w3.png"},
-            {name: "BRANCOTT (2 вида)", img: "w4.png"},
-            {name: "CORVEZZO (3 вида)", img: "w5.png"},
+            {name: "Vellevine Kindzmarauli", img: "wvelkindz.png"}, 
+            {name: "Vellevine Pirosmani", img: "wvelpiros.png"},
+            {name: "Vellevine Tsinandali", img: "wveltsinan.png"},
+            {name: "Brancott Sauvignon", img: "wbrsauvi.png"}, 
+            {name: "Brancott Pinot Noir", img: "wbrpinot.png"},
+            {name: "Corvezzo Prosecco", img: "wcorprosecco.png"}, 
+            {name: "Corvezzo Pinot Grigio", img: "wcorpinot.png"}, 
+            {name: "Corvezzo Merlot", img: "wcormerlot.png"},
             {name: "Кагор", img: "w6.png"},
-            {name: "Askaneli (виды)", img: "w7.png"},
-            {name: "Moët Imperial", img: "mi.png"}
+            {name: "Askaneli Kindzmarauli", img: "waskkindz.png"},
+            {name: "Askaneli Saperavi", img: "wassaper.png"},
+            {name: "Askaneli Rkatsiteli", img: "waskrkat.png"}
         ],
         beer: [ 
             {name: "Heineken", vols: ["0.3", "0.5"], img: "heineken.png"},
             {name: "Krusovice", vols: ["0.5"], img: "krusovice.png"},
-            {name: "Rabbit Blue", img: "rabbit.png"},
             {name: "Max Jack’s", img: "maxjacks.png"},
-            {name: "Efes pilsner", img: "efes.png"},
+            {name: "Efes", img: "efes.png"},
             {name: "Miller", vols: ["0.3", "0.5"], img: "miller.png"},
             {name: "Corona extra", vols: ["0.3"], img: "corona.png"},
             {name: "Bavarian", vols: ["0.5"], img: "bavarian.png"},
             {name: "Wukong", vols: ["0.5"], img: "wukong.png"},
             {name: "Holsten", vols: ["0.5"], img: "holsten.png"},
-            {name: "Blanc 1664", img: "blanc.png"},
-            {name: "Rose 1664", img: "rose.png"},
+            {name: "Blanc 1664", img: "blancjb.png"},
+            {name: "Rose 1664", img: "blancsteklo.png"},
             {name: "Carlslerg", img: "carlslerg.png"},
             {name: "Bud", vols: ["0.3", "0.5"], img: "bud.png"},
             {name: "Tsintao", vols: ["0.3"], img: "tsintao.png"},
             {name: "Clausthaler", vols: ["0.3"], img: "clausthaler.png"},
             {name: "Astera", vols: ["0.5"], img: "astera.png"},
             {name: "Line brew premium lager", vols: ["0.5"], img: "linebrew.png"},
-            {name: "Gubernija pilsners", vols: ["0.5"], img: "gub-pils.png"},
+            {name: "Gubernija pilsners", vols: ["0.5"], img: "gubpils.png"},
             {name: "Fest bier", vols: ["0.5"], img: "festbier.png"},
-            {name: "Gubernija Extra", vols: ["0.5"], img: "gub-extra.png"},
+            {name: "Gubernija Extra", vols: ["0.5"], img: "gubextra.png"},
             {name: "Ayinger", vols: ["0.5"], img: "ayinger.png"},
             {name: "Stun", vols: ["0.3"], img: "stun.png"},
             {name: "Gin tonic", img: "gintonic.png"}
         ],
         snacks: [ 
-            {name: "Big Bob Japan", img: "s1.png"},
-            {name: "Big Bob Italy", img: "s1.png"},
-            {name: "Big Bob Georgia", img: "s1.png"},
-            {name: "Big Bob Qazaqstan", img: "s1.png"},
-            {name: "Big Bob Thailand", img: "s1.png"},
-            {name: "Big Bob Фисташки 30г", img: "s1.png"},
-            {name: "Big Bob Фисташки 50г", img: "s1.png"},
-            {name: "Big Bob Арахис соленый", img: "s1.png"},
-            {name: "Морские Анчоусы", img: "s2.png"},
-            {name: "Морской Желтый полосатик", img: "s2.png"},
-            {name: "Pringles Paprika", img: "pringles.png"},
-            {name: "Pringles Original", img: "pringles.png"},
-            {name: "Pringles Sour Cream & Onion", img: "pringles.png"},
-            {name: "Flint 60г", img: "flint.png"},
-            {name: "Flint 100г", img: "flint.png"},
-            {name: "Flint Гренки 90г", img: "flint.png"},
-            {name: "Flint 200г", img: "flint.png"},
+            {name: "Big Bob Japan", img: "bbjapan.png"},
+            {name: "Big Bob Italy", img: "bbitaly.png"},
+            {name: "Big Bob Georgia", img: "bbgeorgia.png"},
+            {name: "Big Bob Qazaqstan", img: "bbqazaqstan.png"},
+            {name: "Big Bob Thailand", img: "bbthailand.png"},
+            {name: "Big Bob Фисташки 30г", img: "bbfistashki30.png"},
+            {name: "Big Bob Фисташки 50г", img: "bbfistashki50.png"},
+            {name: "Big Bob Арахис соленый", img: "bbarahissol.png"},
+            {name: "Морские Анчоусы", img: "anchous.png"},
+            {name: "Морской Желтый полосатик", img: "polosatik.png"},
+            {name: "Pringles Paprika", img: "pspaprika.png"},
+            {name: "Pringles Original", img: "psoriginal.png"},
+            {name: "Pringles Sour Cream & Onion", img: "pssmetana.png"},
+            {name: "Flint 60г", img: "flint60.png"},
+            {name: "Flint 100г", img: "flint100.png"},
+            {name: "Flint Гренки 90г", img: "flint90.png"},
+            {name: "Flint 200г", img: "flint200.png"},
             {name: "Lays", img: "lays.png"},
             {name: "Averton", img: "averton.png"},
-            {name: "Бөрте Курт", img: "kurt.png"},
-            {name: "Ермак Курт", img: "kurt.png"},
-            {name: "Чечил весовой", img: "chechil.png", type: "weight"},
-            {name: "Чечил паутинка весовой", img: "chechil.png", type: "weight"},
-            {name: "Рыбные палочки", img: "fishstick.png", type: "pieces"},
+            {name: "Бөрте Курт", img: "bortekurt.png"},
+            {name: "Ермак Курт", img: "ermak.png"},
+            {name: "Чечил весовой", img: "kemalves.png", type: "weight"},
+            {name: "Чечил паутинка весовой", img: "pautinkaves.png", type: "weight"},
+            {name: "Рыбные палочки", img: "rbpal.png", type: "pieces"},
             {name: "Жерех", img: "fish.png", type: "weight"},
             {name: "Лещь", img: "fish.png", type: "weight"},
-            {name: "Адыгейский чечил косичка", img: "chechil.png"},
-            {name: "Адыгейский чечил паутинка", img: "chechil.png"},
-            {name: "Бөрте чечил", img: "chechil.png"},
-            {name: "Сет Сыров", img: "s1.png"}, 
-            {name: "Мясное ассорти", img: "s2.png"} 
+            {name: "Адыгейский чечил косичка", img: "adkosichka.png"},
+            {name: "Адыгейский чечил паутинка", img: "adpautinka.png"},
+            {name: "Бөрте чечил", img: "bortechecil.png"},
         ]
     };
 
-    let cart = []; // Теперь храним объекты {id, name, desc, qty, isCustom}
+    let cart = JSON.parse(localStorage.getItem('alco_cart')) || []; 
     let currentCategory = 'whisky';
     let tempCustomName = '';
-    let tempCustomType = ''; // 'liter', 'weight', 'pieces'
+    let tempCustomType = '';
     let selectedBranch = '';
     let currentTempQty = 1;
     let currentTempProdName = '';
-
-    // СВАЙП ЛОГИКА
-    let touchStartX = 0;
-    document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
-    document.addEventListener('touchend', e => {
-        let touchEndX = e.changedTouches[0].screenX;
-        // Если свайп от левого края (первые 50px) вправо на 70px
-        if (touchStartX < 50 && touchEndX > touchStartX + 70) {
-            const sidebar = document.getElementById('catalog-sidebar');
-            if(!sidebar.classList.contains('open')) toggleSidebar();
-        }
-    }, {passive: true});
-
-    // ИСТОРИЯ БРАУЗЕРА (КНОПКА НАЗАД)
-    window.addEventListener('popstate', function(event) {
-        document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
-    });
+    let editingIndex = -1;
 
     function toggleSidebar() {
         const sidebar = document.getElementById('catalog-sidebar');
@@ -394,57 +359,143 @@
         }
     }
 
+    function handleSearch() {
+        const query = document.getElementById('search-input').value.toLowerCase();
+        const list = document.getElementById('main-catalog');
+        const label = document.getElementById('current-cat-label');
+        if (query.trim() === "") { selectCategory(currentCategory); return; }
+        label.innerText = "Результаты поиска";
+        list.innerHTML = '';
+        Object.keys(products).forEach(cat => {
+            products[cat].forEach(p => { if (p.name.toLowerCase().includes(query)) renderProductCard(p, cat); });
+        });
+    }
+
     function selectCategory(type) {
         currentCategory = type;
-        const labels = {whisky:'Виски', vodka:'Водка', cognac:'Коньяк', draft:'Разливное пиво', wine:'Вино', beer:'Пиво', snacks:'Закуски'};
+        const labels = {whisky:'Виски', vodka:'Водка', cognac:'Коньяк', draft:'Разливное', wine:'Вино', beer:'Пиво', snacks:'Закуски'};
         document.getElementById('current-cat-label').innerText = labels[type];
+        document.getElementById('search-input').value = ''; 
         showCategory(type);
         toggleSidebar();
-        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     function showCategory(type) {
         const list = document.getElementById('main-catalog');
         list.innerHTML = ''; 
-        products[type].forEach(p => {
-            list.innerHTML += `
-                <div class="product-card" onclick="handleProductClick('${p.name}')">
-                    <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150/111/c5a059?text=ALCO'">
-                    <h3>${p.name}</h3>
-                    <div class="add-action-box"><span>+ В корзину</span></div>
-                </div>`;
-        });
+        products[type].forEach(p => renderProductCard(p, type));
     }
 
-    function handleProductClick(name) {
-        const prod = products[currentCategory].find(p => p.name === name);
+    function renderProductCard(p, cat) {
+        const list = document.getElementById('main-catalog');
+        list.innerHTML += `
+            <div class="product-card" onclick="handleProductClick('${p.name}', '${cat}')">
+                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/150/111/c5a059?text=ALCO'">
+                <h3>${p.name}</h3>
+                <div class="add-action-box"><span>+ В корзину</span></div>
+            </div>`;
+    }
+
+    function handleProductClick(name, catType) {
+        editingIndex = -1; 
+        const type = catType || currentCategory;
+        const prod = products[type].find(p => p.name === name);
         
-        // Логика для Разливного
-        if(currentCategory === 'draft') {
+        if(type === 'draft') {
             openCustomInput(name, 'liter', 'Сколько литров?');
         } 
-        // Логика для Закусок с весом/штуками
-        else if (currentCategory === 'snacks' && prod.type) {
-            if (prod.type === 'weight') openCustomInput(name, 'weight', 'Введите вес (грамм)');
-            else if (prod.type === 'pieces') openCustomInput(name, 'pieces', 'Сколько штук?');
+        else if (type === 'snacks' && prod.type === 'weight') {
+            openCustomInput(name, 'weight', 'Введите вес (грамм)');
         }
-        // Логика для Бутылок с объемами
         else if (prod.vols) {
-            currentTempProdName = name;
-            currentTempQty = 1;
-            document.getElementById('temp-qty').innerText = "1";
-            document.getElementById('modal-prod-name').innerText = name;
-            const volList = document.getElementById('volume-options-list');
-            volList.innerHTML = '';
-            prod.vols.forEach(v => {
-                volList.innerHTML += `<div class="branch-option" onclick="addToCartWithVol('${v}')"><b>ОБЪЕМ ${v} Л</b></div>`;
-            });
-            openModal('volume-qty-modal');
+            openVolumePicker(name, prod.vols, 1);
         } 
-        // Просто товар (1 шт)
         else {
             addToCart(name, '', 1);
         }
+    }
+
+    function openVolumePicker(name, vols, qty) {
+        currentTempProdName = name;
+        currentTempQty = qty;
+        document.getElementById('temp-qty').innerText = qty;
+        document.getElementById('modal-prod-name').innerText = name;
+        const volList = document.getElementById('volume-options-list');
+        volList.innerHTML = '';
+        vols.forEach(v => {
+            volList.innerHTML += `<div class="branch-option" onclick="addToCartWithVol('${v}')"><b>ОБЪЕМ ${v} Л</b></div>`;
+        });
+        openModal('volume-qty-modal');
+    }
+
+    function editCartItem(idx) {
+        editingIndex = idx;
+        const item = cart[idx];
+        let prodInfo = null;
+        Object.keys(products).forEach(cat => {
+            const found = products[cat].find(p => p.name === item.name);
+            if (found) prodInfo = { ...found, category: cat };
+        });
+
+        if (!prodInfo) return;
+
+        if (prodInfo.category === 'draft') {
+            openCustomInput(item.name, 'liter', 'Изменить объем (л)');
+        } else if (prodInfo.category === 'snacks' && prodInfo.type === 'weight') {
+            openCustomInput(item.name, prodInfo.type, 'Изменить вес');
+        } else if (prodInfo.vols) {
+            openVolumePicker(item.name, prodInfo.vols, item.qty);
+        }
+    }
+
+    function addToCart(name, detail, qty, isCustom = false) {
+        let hideQtyControls = isCustom;
+
+        if (editingIndex > -1) {
+            cart[editingIndex].detail = detail;
+            cart[editingIndex].qty = qty;
+            cart[editingIndex].hideQty = hideQtyControls;
+            editingIndex = -1;
+        } else {
+            const existingIdx = cart.findIndex(item => item.name === name && item.detail === detail);
+            if (existingIdx > -1 && !isCustom) {
+                cart[existingIdx].qty += qty;
+            } else {
+                cart.push({ name, detail, qty, hideQty: hideQtyControls });
+            }
+        }
+        updateCartUI();
+        if (navigator.vibrate) navigator.vibrate(40);
+    }
+
+    function updateCartUI() {
+        localStorage.setItem('alco_cart', JSON.stringify(cart));
+        let totalCount = 0;
+        cart.forEach(i => totalCount += (i.hideQty ? 1 : i.qty));
+        document.getElementById('cart-count').innerText = totalCount;
+        document.getElementById('checkout-bar').style.display = cart.length > 0 ? 'block' : 'none';
+        
+        const list = document.getElementById('cart-items-list');
+        list.innerHTML = '';
+        cart.forEach((item, i) => {
+            list.innerHTML += `
+                <div class="cart-item-row">
+                    <div class="cart-info">
+                        <span style="color:var(--gold); font-weight:700;">${item.name}</span>
+                        <span class="btn-edit-item" onclick="editCartItem(${i})">✏️</span>
+                        ${item.detail ? `<br><span style="color:#888;">${item.detail}</span>` : ''}
+                    </div>
+                    <div class="cart-actions">
+                        ${!item.hideQty ? `
+                            <div class="cart-mini-btn" onclick="changeCartItemQty(${i}, -1)">-</div>
+                            <span style="font-weight:700; min-width:20px; text-align:center;">${item.qty}</span>
+                            <div class="cart-mini-btn" onclick="changeCartItemQty(${i}, 1)">+</div>
+                        ` : `
+                            <div class="btn-delete-item" onclick="changeCartItemQty(${i}, -999)">✕</div>
+                        `}
+                    </div>
+                </div>`;
+        });
     }
 
     function openCustomInput(name, type, title) {
@@ -452,7 +503,6 @@
         tempCustomType = type;
         document.getElementById('custom-input-title').innerText = title;
         document.getElementById('custom-input-field').value = '';
-        document.getElementById('custom-input-field').placeholder = type === 'weight' ? 'Пример: 200' : '...';
         openModal('custom-input-modal');
     }
 
@@ -462,9 +512,6 @@
             let detail = '';
             if(tempCustomType === 'liter') detail = `${val} л`;
             if(tempCustomType === 'weight') detail = `${val} гр`;
-            if(tempCustomType === 'pieces') detail = `${val} шт`;
-            
-            // Если штуки - это количество, если вес/литры - это описание
             addToCart(tempCustomName, detail, 1, true); 
             closeModal('custom-input-modal');
         }
@@ -480,27 +527,6 @@
         closeModal('volume-qty-modal');
     }
 
-    function addToCart(name, detail, qty, isCustom = false) {
-        // Проверяем, есть ли уже такой товар
-        const existingIdx = cart.findIndex(item => item.name === name && item.detail === detail);
-        
-        if (existingIdx > -1 && !isCustom) {
-            // Если есть и это обычный товар - увеличиваем кол-во
-            cart[existingIdx].qty += qty;
-        } else {
-            // Иначе добавляем новый
-            cart.push({ name, detail, qty });
-        }
-        
-        updateCartUI();
-        if (navigator.vibrate) navigator.vibrate(40);
-        
-        // Визуальное уведомление на кнопке корзины
-        const bar = document.getElementById('checkout-bar');
-        bar.style.transform = 'translateX(-50%) scale(1.1)';
-        setTimeout(() => bar.style.transform = 'translateX(-50%) scale(1)', 150);
-    }
-
     function changeCartItemQty(index, delta) {
         cart[index].qty += delta;
         if (cart[index].qty <= 0) {
@@ -510,64 +536,31 @@
         updateCartUI();
     }
 
-    function updateCartUI() {
-        let totalQty = 0;
-        cart.forEach(i => totalQty += i.qty);
-        document.getElementById('cart-count').innerText = totalQty;
-        document.getElementById('checkout-bar').style.display = cart.length > 0 ? 'block' : 'none';
-        
-        const list = document.getElementById('cart-items-list');
-        list.innerHTML = '';
-        
-        cart.forEach((item, i) => {
-            list.innerHTML += `
-                <div class="cart-item-row">
-                    <div class="cart-info">
-                        <span style="color:var(--gold); font-weight:700;">${item.name}</span>
-                        ${item.detail ? `<br><span style="color:#888;">${item.detail}</span>` : ''}
-                    </div>
-                    <div class="cart-actions">
-                        <div class="cart-mini-btn" onclick="changeCartItemQty(${i}, -1)">-</div>
-                        <span style="font-weight:700; min-width:20px; text-align:center;">${item.qty}</span>
-                        <div class="cart-mini-btn" onclick="changeCartItemQty(${i}, 1)">+</div>
-                    </div>
-                </div>`;
-        });
-    }
-
-    function selectBranch(branch) {
-        selectedBranch = branch;
-        openModal('delivery-modal');
-    }
+    function selectBranch(branch) { selectedBranch = branch; openModal('delivery-modal'); }
 
     function finalOrderSend() {
         const addr = document.getElementById('delivery-address').value;
         if(!addr) { alert("Укажите адрес"); return; }
         const nums = { branch1: "77780010770", branch2: "77080021092" };
-        
         let orderText = `🔥 НОВЫЙ ЗАКАЗ:\n\n`;
-        cart.forEach(item => {
-            orderText += `▪️ ${item.name} ${item.detail ? '(' + item.detail + ')' : ''} — ${item.qty} шт.\n`;
+        cart.forEach(item => { 
+            orderText += `▪️ ${item.name} ${item.detail ? '(' + item.detail + ')' : ''} ${!item.hideQty ? '— ' + item.qty + ' шт.' : ''}\n`; 
         });
         orderText += `\n📍 АДРЕС: ${addr}`;
-        
         window.open(`https://wa.me/${nums[selectedBranch]}?text=${encodeURIComponent(orderText)}`);
     }
 
     function openModal(id) { 
         document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
         document.getElementById(id).style.display = 'flex';
-        // Добавляем запись в историю для кнопки "Назад"
-        window.history.pushState({modal: true}, '');
     }
     
-    function closeModal(id) { 
-        document.getElementById(id).style.display = 'none'; 
-        // Если закрываем кнопкой на сайте, убираем состояние из истории, чтобы не дублировать
-        if(history.state && history.state.modal) history.back();
-    }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-    window.onload = () => showCategory('whisky');
+    window.onload = () => {
+        showCategory('whisky');
+        updateCartUI();
+    };
 </script>
 </body>
 </html>
